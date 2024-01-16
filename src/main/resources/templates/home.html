@@ -1,0 +1,56 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <style>
+        body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .wrapper {
+            text-align: center;
+        }
+
+        table {
+            margin-top: 20px; /* 원하는 만큼 조절하여 여백 추가 */
+            margin-bottom: 20px;
+            width: 100%;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+<div style="align-items: center; text-align: center; align-content: center">
+<div class="wrapper">
+    <header>To do List</header>
+    <form action="/save" method="post">
+        <div class="form-group">
+            <label for="text">할 일</label>
+            <input type="text" id="text" name="text" placeholder="할 일 입력하기">
+            <button type="submit">등록</button>
+        </div>
+    </form>
+</div>
+<div>
+    <table >
+        <tbody>
+        <tr th:each="todo : ${list}">
+            <td th:text="${todo.text}"></td>
+            <td>
+                <!-- 추가: 삭제 버튼에 대한 form 설정 -->
+                <form action="/delete" method="post">
+                    <input type="hidden" name="text" th:value="${todo.text}">
+                    <button type="submit">X</button>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</div>
+</body>
+
+</html>
